@@ -562,3 +562,13 @@ def test_argument_can_follow_repeating_option():
     assert docopt('usage: prog --file=<file> ... <target>', '--file=foo --file=bar outdir') == \
             {'--file':['foo', 'bar'], '<target>': 'outdir'}
 
+
+def test_required_option_can_follow_repeating_argument():
+    assert docopt('usage: prog <foo>... [--ding]', 'foo bar --ding') == \
+            {'<foo>':['foo', 'bar'], '--ding':True}
+
+
+def test_optional_can_follow_repeating_argument():
+    assert docopt('usage: prog <foo>... (--ding)', 'foo bar --ding') == \
+            {'<foo>':['foo', 'bar'], '--ding':True}
+
